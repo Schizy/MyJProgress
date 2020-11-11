@@ -8,9 +8,9 @@ services:
       - './data:/var/lib/mysql'
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=jp-grammar
-      - MYSQL_USER=jp-grammar
-      - MYSQL_PASSWORD=jp-grammar
+      - MYSQL_DATABASE=jpgrammar
+      - MYSQL_USER=jpgrammar
+      - MYSQL_PASSWORD=jpgrammar
 
   adminer:
     image: adminer:4.7
