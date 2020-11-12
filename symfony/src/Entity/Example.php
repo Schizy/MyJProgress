@@ -33,6 +33,17 @@ class Example
     private $translation;
 
     /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -96,6 +107,26 @@ class Example
     public function setTranslation($translation)
     {
         $this->translation = $translation;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     *
+     * @return Example
+     */
+    public function setCreatedAt(\DateTime $createdAt): Example
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
