@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function number(EntityManagerInterface $em): Response
+    public function home(EntityManagerInterface $em): Response
     {
         $grammar = new Grammar();
         $grammar
@@ -24,6 +24,16 @@ class HomeController extends AbstractController
                 (new Example())
                     ->setPhrase('よめば　よむほど　簡単になる。')
                     ->setTranslation('Plus tu lis plus ça devient facile.')
+                    ->setGrammar($grammar)
+            )->addExample(
+                (new Example())
+                    ->setPhrase('よめば　よむほど　簡単になる。2')
+                    ->setTranslation('Plus tu lis plus ça devient facile. 2')
+                    ->setGrammar($grammar)
+            )->addExample(
+                (new Example())
+                    ->setPhrase('よめば　よむほど　簡単になる。3')
+                    ->setTranslation('Plus tu lis plus ça devient facile. 3')
                     ->setGrammar($grammar)
             );
         $em->persist($grammar);
