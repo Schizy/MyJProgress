@@ -31,7 +31,7 @@ class HomeController extends AbstractController
 
         $rules = $em->getRepository(Grammar::class)->findBy([], ['id' => 'desc'], 5);
 
-        return $this->render('base.html.twig', [
+        return $this->render('home/home.html.twig', [
             'title' => 'ようこそ！',
             'rules' => $rules,
         ]);
