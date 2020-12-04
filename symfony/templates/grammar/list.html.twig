@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="col-lg-8 col-md-10 mx-auto">
-        {% for rule in rules %}
+        {% for rule in grammars %}
             <div class="post-preview">
                 <a href="{{ path("grammar-rule", { "id" : rule.id, "rule" : rule.name }) }}">
                     <h2 class="post-title">
@@ -17,9 +17,5 @@
             </div>
             <hr>
         {% endfor %}
-        <!-- Pager -->
-        <div class="clearfix">
-            <a class="btn btn-primary float-right" href="{{ path("grammar-list") }}">Older Posts &rarr;</a>
-        </div>
     </div>
 {% endblock %}
