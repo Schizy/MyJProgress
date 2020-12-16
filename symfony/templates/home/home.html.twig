@@ -8,7 +8,11 @@
                         {{ rule.name }}
                     </h2>
                     <h3 class="post-subtitle">
-                        {{ rule.examples.first.phrase }}
+                        {% if rule.examples|length > 0 %}
+                            {{ rule.examples.first.phrase }}
+                        {% else %}
+                            Aucun example
+                        {% endif %}
                     </h3>
                 </a>
                 <p class="post-meta">Posted by

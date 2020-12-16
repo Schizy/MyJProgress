@@ -35,7 +35,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
 
         yield MenuItem::section('Entities');
-        yield MenuItem::linkToCrud('Grammars', 'fas fa-list', Grammar::class);
-        yield MenuItem::linkToCrud('Examples', 'fa fa-comment-alt', Example::class);
+        yield MenuItem::linkToCrud('Grammars', 'fas fa-list', Grammar::class)
+            ->setDefaultSort(['id' => 'DESC']);
+        yield MenuItem::linkToCrud('Examples', 'fa fa-comment-alt', Example::class)
+            ->setDefaultSort(['id' => 'DESC']);
     }
 }

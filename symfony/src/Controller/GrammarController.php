@@ -1,6 +1,5 @@
 <?php
 
-// src/Controller/HomeController.php
 namespace App\Controller;
 
 use App\Entity\Example;

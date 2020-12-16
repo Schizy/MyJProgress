@@ -1,9 +1,7 @@
 <?php
 
-// src/Controller/HomeController.php
 namespace App\Controller;
 
-use App\Entity\Example;
 use App\Entity\Grammar;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -5,17 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity()
  */
-class Example
+class Example extends AbstractEntity
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
     /**
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Grammar", inversedBy="examples")
@@ -32,24 +25,6 @@ class Example
      */
     private $translation;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @var \DateTime
-     */
-    private $createdAt;
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return mixed
@@ -107,26 +82,6 @@ class Example
     public function setTranslation($translation)
     {
         $this->translation = $translation;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return Example
-     */
-    public function setCreatedAt(\DateTime $createdAt): Example
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }
