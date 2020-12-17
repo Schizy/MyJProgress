@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -18,14 +19,15 @@ class Example extends AbstractEntity
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $phrase;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $translation;
-
 
     /**
      * @return mixed
