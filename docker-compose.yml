@@ -1,28 +1,39 @@
 version: '3.7'
 services:
-  db:
-    image: mysql:5.7
-    ports: ['3306:3306']
-    restart: always
-    volumes:
-      - './data:/var/lib/mysql'
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=jpgrammar
-      - MYSQL_USER=jpgrammar
-      - MYSQL_PASSWORD=jpgrammar
+    db:
+        image: mysql:5.7
+        ports: [ '3306:3306' ]
+        restart: always
+        volumes:
+            - './data/db:/var/lib/mysql'
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=jpgrammar
+            - MYSQL_USER=jpgrammar
+            - MYSQL_PASSWORD=jpgrammar
+    db-test:
+        image: mysql:5.7
+        ports: [ '3307:3306' ]
+        restart: always
+        volumes:
+            - './data/db-test:/var/lib/mysql'
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=test
+            - MYSQL_USER=test
+            - MYSQL_PASSWORD=test
 
-  adminer:
-    image: adminer:4.7
-    restart: always
-    ports:
-      - 8080:8080
+    adminer:
+        image: adminer:4.7
+        restart: always
+        ports:
+            - 8080:8080
 
-  php:
-    build: ./docker/php
-    volumes: ['./symfony/:/var/www/symfony:cached']
+    php:
+        build: ./docker/php
+        volumes: [ './symfony/:/var/www/symfony:cached' ]
 
-  nginx:
-    build: ./docker/nginx
-    ports: ['80:80']
-    volumes: ['./symfony/:/var/www/symfony:cached']
+    nginx:
+        build: ./docker/nginx
+        ports: [ '80:80' ]
+        volumes: [ './symfony/:/var/www/symfony:cached' ]

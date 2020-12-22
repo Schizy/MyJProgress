@@ -8,16 +8,18 @@ CON = $(PHP) bin/console
 ##
 ## Database
 ##---------------------------------------------------------------------------
-.PHONY: db-fixture db-remove db-reset
-
-db-fixture: ## Run fixture for db
-	$(EXEC) $(CON) doctrine:fixtures:load -n -e=test
+.PHONY: db-test
 
 db-remove: ## Run remove for db
-	$(EXEC) $(CON) doctrine:schema:drop -e=test
+	$(EXEC) $(CON) doctrine:schema:drop -n -e test
 
-db-reset: ## Run reset for db and run fixture
-db-reset: db-remove db-fixture
+db-migrate: ## Run fixture for db
+	$(EXEC) $(CON) doctrine:migrations:migrate -n -e test
+
+db-fixture: ## Run fixture for db
+	$(EXEC) $(CON) doctrine:fixtures:load -n -e test
+
+db-test: db-remove db-migrate db-fixture
 
 db-migration:  ## Runs the mongo DB migration
 db-migration:
@@ -32,4 +34,4 @@ unit-test: ## Run unit tests
 	$(EXEC) bin/phpunit
 
 unit-test-coverage: ## Run unit tests with code coverage generate
-	$(EXEC) bin/phpunit --coverage-html public/code-coverage
+	$(EXEC) bin/phpunit -e test --coverage-html public/code-coverage
