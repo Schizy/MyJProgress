@@ -7,27 +7,29 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class GrammarControllerPhpTest extends WebTestCase
 {
     /**
-     * @todo: add fixtures
+     * @test
      */
-//    public function list()
-//    {
-//        $client = static::createClient();
-//        $crawler = $client->request('GET', '/grammars/');
-//
-//        $this->assertResponseIsSuccessful();
-//        $this->assertSelectorTextContains('h1', 'Liste des règles de grammaire');
-//    }
+    public function list()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/grammars/');
+
+        $this->assertSame(1, $crawler->count('.post-title'));
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', 'Liste des règles de grammaire');
+    }
 
     /**
+     * @test
      */
-//    public function rule()
-//    {
-//        $client = static::createClient();
-//        $crawler = $client->request('GET', '/grammars/1-ば');
-//
-//        $this->assertResponseIsSuccessful();
+    public function rule()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/grammars/1-ば〜ほど');
+
+        $this->assertResponseIsSuccessful();
 //        $this->assertSelectorTextContains('h1', 'grammar.name');
-//    }
+    }
 
     /**
      * @test

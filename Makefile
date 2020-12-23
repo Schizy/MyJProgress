@@ -10,6 +10,9 @@ CON = $(PHP) bin/console
 ##---------------------------------------------------------------------------
 .PHONY: db-test
 
+php: ## Run remove for db
+	$(EXEC) sh
+
 db-remove: ## Run remove for db
 	$(EXEC) $(CON) doctrine:schema:drop -n -e test
 

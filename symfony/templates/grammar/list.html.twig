@@ -8,7 +8,7 @@
                         {{ rule.name }}
                     </h2>
                     <h3 class="post-subtitle">
-                        {{ rule.examples.first.phrase }}
+                        {{ rule.examples.first.phrase|default('-') }}
                     </h3>
                 </a>
                 <p class="post-meta">Posted by
