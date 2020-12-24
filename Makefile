@@ -14,13 +14,13 @@ php: ## Run remove for db
 	$(EXEC) sh
 
 db-remove: ## Run remove for db
-	$(EXEC) $(CON) doctrine:schema:drop -n -e test
+	$(EXEC) $(CON) doctrine:schema:drop -n
 
 db-migrate: ## Run fixture for db
-	$(EXEC) $(CON) doctrine:migrations:migrate -n -e test
+	$(EXEC) $(CON) doctrine:migrations:migrate -n
 
 db-fixture: ## Run fixture for db
-	$(EXEC) $(CON) doctrine:fixtures:load -n -e test
+	$(EXEC) $(CON) doctrine:fixtures:load -n
 
 db-test: db-remove db-migrate db-fixture
 
@@ -37,4 +37,4 @@ unit-test: ## Run unit tests
 	$(EXEC) bin/phpunit
 
 unit-test-coverage: ## Run unit tests with code coverage generate
-	$(EXEC) bin/phpunit -e test --coverage-html public/code-coverage
+	$(EXEC) bin/phpunit --coverage-html public/code-coverage

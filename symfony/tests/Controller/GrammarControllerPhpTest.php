@@ -25,7 +25,10 @@ class GrammarControllerPhpTest extends WebTestCase
     public function rule()
     {
         $client = static::createClient();
+        $container = $client->getContainer();
         $crawler = $client->request('GET', '/grammars/1-ば〜ほど');
+
+        $this->assertSame(1, $crawler->filter('.post-title')->count());
 
         $this->assertResponseIsSuccessful();
 //        $this->assertSelectorTextContains('h1', 'grammar.name');
@@ -33,13 +36,19 @@ class GrammarControllerPhpTest extends WebTestCase
 
     /**
      * @test
+     * @depends rule
      */
-    public function add()
+    public function ruleAddExample()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/grammars/add');
+        $client->request('GET', '/grammars/1-ば〜ほど');
 
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Nouvelle grammaire');
+        $client->submitForm('Valider', [
+            'example_form[phrase]' => 'ここはどこ',
+            'example_form[translation]' => 'On est où ?!',
+        ]);
+        $crawler = $client->followRedirect();
+        $this->assertSame(2, $crawler->filter('.post-title')->count());
+//        $this->assertSelectorTextContains('h1', 'Nouvelle grammaire');
     }
 }
