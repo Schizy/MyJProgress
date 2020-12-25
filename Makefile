@@ -10,6 +10,10 @@ CON = $(PHP) bin/console
 ##---------------------------------------------------------------------------
 .PHONY: db-test
 
+up:
+	$(DC) up -d
+down:
+	$(DC) down --remove-orphans
 php: ## Run remove for db
 	$(EXEC) sh
 
