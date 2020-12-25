@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\Grammar;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class GrammarControllerPhpTest extends WebTestCase
@@ -25,13 +26,13 @@ class GrammarControllerPhpTest extends WebTestCase
     public function rule()
     {
         $client = static::createClient();
-        $container = $client->getContainer();
         $crawler = $client->request('GET', '/grammars/1-ば〜ほど');
 
         $this->assertSame(1, $crawler->filter('.post-title')->count());
 
         $this->assertResponseIsSuccessful();
-//        $this->assertSelectorTextContains('h1', 'grammar.name');
+        $grammar = $client->getContainer()->get('doctrine')->getRepository(Grammar::class)->find(1);
+        $this->assertSelectorTextContains('h1', $grammar->getName());
     }
 
     /**
@@ -49,6 +50,5 @@ class GrammarControllerPhpTest extends WebTestCase
         ]);
         $crawler = $client->followRedirect();
         $this->assertSame(2, $crawler->filter('.post-title')->count());
-//        $this->assertSelectorTextContains('h1', 'Nouvelle grammaire');
     }
 }
