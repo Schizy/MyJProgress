@@ -11,6 +11,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Example extends AbstractEntity
 {
+    const STATES = [
+        self::REJECTED,
+        self::PENDING,
+        self::SUBMITTED,
+    ];
+
+    const REJECTED = 0;
+
+    const PENDING = 1;
+
+    const SUBMITTED = 2;
+
     /**
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Grammar", inversedBy="examples")
@@ -28,6 +40,12 @@ class Example extends AbstractEntity
      * @Assert\NotBlank
      */
     private $translation;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     */
+    private $state = self::PENDING;
 
     /**
      * @return mixed
@@ -85,6 +103,28 @@ class Example extends AbstractEntity
     public function setTranslation($translation)
     {
         $this->translation = $translation;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getState(): int
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param int $state
+     *
+     * @return Example
+     */
+    public function setState(int $state): Example
+    {
+        if (in_array($state, self::STATES)) {
+            $this->state = $state;
+        }
 
         return $this;
     }
