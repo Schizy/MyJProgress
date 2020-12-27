@@ -30,7 +30,7 @@ class GrammarController extends AbstractController
     {
         return $this->render('grammar/list.html.twig', [
             'title' => 'Liste des règles de grammaire',
-            'grammars' => $this->em->getRepository(Grammar::class)->findAll(),
+            'grammars' => $this->em->getRepository(Grammar::class)->list(),
         ]);
     }
 
