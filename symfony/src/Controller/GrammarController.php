@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Example;
 use App\Entity\Grammar;
 use App\Form\ExampleFormType;
+use App\Message\ExampleMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,9 +20,12 @@ class GrammarController extends AbstractController
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    private $bus;
+
+    public function __construct(EntityManagerInterface $em, MessageBusInterface $bus)
     {
         $this->em = $em;
+        $this->bus = $bus;
     }
 
     /**
@@ -46,6 +51,10 @@ class GrammarController extends AbstractController
         if ($example_form->isSubmitted() && $example_form->isValid()) {
             $this->em->persist($example);
             $this->em->flush();
+
+            $this->bus->dispatch(new ExampleMessage($example->getId(), [
+                'des trucs' => "c'est pas très important",
+            ]));
 
             return $this->redirect($request->getRequestUri());
         }

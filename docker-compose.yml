@@ -37,3 +37,7 @@ services:
         build: ./docker/nginx
         ports: [ '80:80' ]
         volumes: [ './symfony/:/var/www/symfony:cached' ]
+
+    rabbitmq:
+        image: rabbitmq:3.7-management
+        ports: [ 5672, 15672 ]
