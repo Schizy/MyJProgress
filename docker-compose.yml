@@ -39,5 +39,5 @@ services:
         volumes: [ './symfony/:/var/www/symfony:cached' ]
 
     rabbitmq:
-        image: rabbitmq:3.7-management
-        ports: [ 5672, 15672 ]
+        image: rabbitmq:3
+        ports: [ 8081, 5672 ]
