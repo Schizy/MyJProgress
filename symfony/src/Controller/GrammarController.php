@@ -53,7 +53,7 @@ class GrammarController extends AbstractController
             $this->em->flush();
 
             $this->bus->dispatch(new ExampleMessage($example->getId(), [
-                'des trucs' => "c'est pas très important",
+                'from' => "controller",
             ]));
 
             return $this->redirect($request->getRequestUri());
