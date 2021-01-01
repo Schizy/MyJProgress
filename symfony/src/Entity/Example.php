@@ -14,14 +14,14 @@ class Example extends AbstractEntity
     const STATES = [
         self::REJECTED,
         self::PENDING,
-        self::SUBMITTED,
+        self::PUBLISHED,
     ];
 
-    const REJECTED = 0;
+    const REJECTED = 'rejected';
 
-    const PENDING = 1;
+    const PENDING = 'pending';
 
-    const SUBMITTED = 2;
+    const PUBLISHED = 'published';
 
     /**
      *
@@ -42,7 +42,7 @@ class Example extends AbstractEntity
     private $translation;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Assert\NotBlank
      */
     private $state = self::PENDING;
@@ -108,19 +108,19 @@ class Example extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getState(): int
+    public function getState(): string
     {
         return $this->state;
     }
 
     /**
-     * @param int $state
+     * @param string $state
      *
-     * @return Example
+     * @return $this
      */
-    public function setState(int $state): Example
+    public function setState(string $state): Example
     {
         if (in_array($state, self::STATES)) {
             $this->state = $state;

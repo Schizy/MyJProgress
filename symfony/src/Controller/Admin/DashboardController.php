@@ -21,7 +21,7 @@ class DashboardController extends AbstractDashboardController
         //TODO: Create a real dashboard with the count of grammars and examples
         $routeBuilder = $this->get(CrudUrlGenerator::class)->build();
 
-        return $this->redirect($routeBuilder->setController(GrammarCrudController::class)->generateUrl());
+        return $this->redirect($routeBuilder->setController(ExampleCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard

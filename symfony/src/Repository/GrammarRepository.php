@@ -28,6 +28,6 @@ class GrammarRepository extends EntityRepository
     {
         return $this->createQueryBuilder('g')
             ->innerJoin('g.examples', 'e')->addSelect('e')
-            ->andWhere('e.state = :state')->setParameter('state', Example::SUBMITTED);
+            ->andWhere('e.state = :state')->setParameter('state', Example::PUBLISHED);
     }
 }

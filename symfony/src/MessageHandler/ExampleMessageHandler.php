@@ -5,15 +5,23 @@ namespace App\MessageHandler;
 use App\Entity\Example;
 use App\Message\ExampleMessage;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 class ExampleMessageHandler implements MessageHandlerInterface
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    private $workflow;
+
+    private $logger;
+
+    public function __construct(EntityManagerInterface $entityManager, WorkflowInterface $exampleStateMachine, LoggerInterface $logger)
     {
         $this->em = $entityManager;
+        $this->workflow = $exampleStateMachine;
+        $this->logger = $logger;
     }
 
     public function __invoke(ExampleMessage $message)
@@ -22,8 +30,11 @@ class ExampleMessageHandler implements MessageHandlerInterface
             return;
         }
 
-        $example->setState(Example::SUBMITTED);
-
-        $this->em->flush();
+        if ($this->workflow->can($example, 'publish')) {
+            $this->workflow->apply($example, 'publish');
+            $this->em->flush();
+        } else {
+            $this->logger->alert('Transition "publish" rejected for example #'.$example->getId());
+        }
     }
 }

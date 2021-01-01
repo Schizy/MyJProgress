@@ -1,2 +1,23 @@
 framework:
-    workflows: null
+    workflows:
+        example:
+            type: state_machine
+            audit_trail:
+                enabled: "%kernel.debug%"
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Example
+            initial_marking: pending
+            places:
+                - pending
+                - rejected
+                - published
+            transitions:
+                publish:
+                    from: pending
+                    to: published
+                reject:
+                    from: pending
+                    to: rejected
