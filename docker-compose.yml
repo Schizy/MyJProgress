@@ -39,5 +39,9 @@ services:
         volumes: [ './symfony/:/var/www/symfony:cached' ]
 
     rabbitmq:
-        image: rabbitmq:3
-        ports: [ 8081, 5672 ]
+        image: library/rabbitmq:3-management
+        ports: [ '8081:5672' ]
+
+    mailer:
+        image: schickling/mailcatcher
+        ports: [ '1025:1080' ]

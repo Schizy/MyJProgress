@@ -1,0 +1,20 @@
+{% extends '@email/default/notification/body.html.twig' %}
+
+{% block content %}
+    Author: Schizy<br />
+    Email: jpgrammar@yopmail.com<br />
+    State: {{ example.state }}<br />
+
+    <p>
+        {{ example.phrase }}
+    </p>
+    <p>
+        {{ example.translation }}
+    </p>
+{% endblock %}
+
+{% block action %}
+    <spacer size="16"></spacer>
+    <button href="">Accept</button>
+    <button href="">Reject</button>
+{% endblock %}
