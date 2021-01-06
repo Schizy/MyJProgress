@@ -10,7 +10,7 @@ class GrammarRepository extends EntityRepository
     /**
      * For ParamConverter purpose
      */
-    public function find($id, $lockMode = null, $lockVersion = null)
+    public function findById($id, $lockMode = null, $lockVersion = null)
     {
         return $this->getQueryBuilder()
             ->andWhere('g.id = :id')->setParameter('id', $id)
@@ -19,7 +19,7 @@ class GrammarRepository extends EntityRepository
 
     public function list()
     {
-        return $this->getQueryBuilder()
+        return $this->createQueryBuilder('g')
             ->orderBy('g.createdAt', 'DESC')
             ->getQuery()->getResult();
     }

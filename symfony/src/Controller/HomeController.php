@@ -11,7 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/")
+     */
+    public function indexNoLocale(): Response
+    {
+        return $this->redirectToRoute('homepage', ['_locale' => 'ja']);
+    }
+
+    /**
+     * @Route("/{_locale<%app.supported_locales%>}/", name="homepage")
      */
     public function home(EntityManagerInterface $em): Response
     {
