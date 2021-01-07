@@ -15,7 +15,9 @@ class HomeController extends AbstractController
      */
     public function indexNoLocale(): Response
     {
-        return $this->redirectToRoute('homepage', ['_locale' => 'ja']);
+        return $this->redirectToRoute('homepage', [
+            '_locale' => $this->getParameter('kernel.default_locale'),
+        ]);
     }
 
     /**
@@ -24,7 +26,6 @@ class HomeController extends AbstractController
     public function home(EntityManagerInterface $em): Response
     {
         return $this->render('home/home.html.twig', [
-            'title' => 'ようこそ！',
             'rules' => $em->getRepository(Grammar::class)->findBy([], ['id' => 'desc'], 5),
         ]);
     }

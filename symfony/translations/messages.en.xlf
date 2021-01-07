@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="ja" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="1C0ZchX" resname="ようこそ">
+        <source>ようこそ</source>
+        <target>Welcome!</target>
+      </trans-unit>
+      <trans-unit id="9UqccrJ" resname="Start Bootstrap">
+        <source>Start Bootstrap</source>
+        <target>JP GRAMMAR</target>
+      </trans-unit>
+      <trans-unit id="OnhpU4i" resname="Home">
+        <source>Home</source>
+        <target>ホーム</target>
+      </trans-unit>
+      <trans-unit id="Tvyg0Qx" resname="About">
+        <source>About</source>
+        <target>このサイトについて</target>
+      </trans-unit>
+      <trans-unit id="expflOv" resname="Add new Grammar">
+        <source>Add new Grammar</source>
+        <target>新たな文法を加える</target>
+      </trans-unit>
+      <trans-unit id="wcIksDz" resname="Admin">
+        <source>Admin</source>
+        <target>アドミン</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
