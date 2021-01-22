@@ -10,9 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/")
-     */
+    #[Route("/")]
     public function indexNoLocale(): Response
     {
         return $this->redirectToRoute('homepage', [
@@ -20,9 +18,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{_locale<%app.supported_locales%>}/", name="homepage")
-     */
+    #[Route("/{_locale<%app.supported_locales%>}/", name:"homepage")]
     public function home(EntityManagerInterface $em): Response
     {
         return $this->render('home/home.html.twig', [

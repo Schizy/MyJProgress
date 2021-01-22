@@ -13,9 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    /**
-     * @Route("/admin", name="admin")
-     */
+    #[Route("/admin", name:"admin")]
     public function index(): Response
     {
         //TODO: Create a real dashboard with the count of grammars and examples
