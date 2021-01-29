@@ -1,47 +1,50 @@
-version: '3.7'
+version: '3.8'
 services:
     db:
         image: mysql:5.7
         ports: [ '3306:3306' ]
-        restart: always
+        restart: unless-stopped
         volumes:
             - './data/db:/var/lib/mysql'
         environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=jpgrammar
-            - MYSQL_USER=jpgrammar
-            - MYSQL_PASSWORD=jpgrammar
+            - MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE
+            - MYSQL_USER
+            - MYSQL_PASSWORD
     db-test:
         image: mysql:5.7
         ports: [ '3307:3306' ]
-        restart: always
+        restart: unless-stopped
         volumes:
             - './data/db-test:/var/lib/mysql'
         environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=test
-            - MYSQL_USER=test
-            - MYSQL_PASSWORD=test
+            - MYSQL_TEST_ROOT_PASSWORD
+            - MYSQL_TEST_DATABASE
+            - MYSQL_TEST_USER
+            - MYSQL_TEST_PASSWORD
 
     adminer:
         image: adminer:4.7
-        restart: always
+        restart: unless-stopped
         ports:
             - 8080:8080
 
     php:
+        restart: unless-stopped
         build: ./docker/php
         volumes: [ './symfony/:/var/www/symfony:cached' ]
 
     nginx:
+        restart: unless-stopped
         build: ./docker/nginx
         ports: [ '80:80' ]
         volumes: [ './symfony/:/var/www/symfony:cached' ]
 
-#    rabbitmq:
-#        image: library/rabbitmq:3-management
-#        ports: [ '8081:5672' ]
+    #    rabbitmq:
+    #        image: library/rabbitmq:3-management
+    #        ports: [ '8081:5672' ]
 
     mailer:
+        restart: unless-stopped
         image: schickling/mailcatcher
         ports: [ '1025:1080' ]

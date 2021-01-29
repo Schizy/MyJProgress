@@ -13,7 +13,7 @@ CON = $(PHP) bin/console
 up:
 	$(DC) up -d
 down:
-	$(DC) down --remove-orphans
+	$(DC) down -v --remove-orphans
 php: ## Run remove for db
 	$(EXEC) sh
 
