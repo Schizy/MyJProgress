@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -32,18 +33,21 @@ class Example extends AbstractEntity
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank
+     * @Groups("grammar:list")
      */
     private $phrase;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank
+     * @Groups("grammar:list")
      */
     private $translation;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank
+     * @Groups("grammar:list")
      */
     private $state = self::PENDING;
 

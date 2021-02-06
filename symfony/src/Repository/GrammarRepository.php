@@ -3,10 +3,17 @@
 namespace App\Repository;
 
 use App\Entity\Example;
-use Doctrine\ORM\EntityRepository;
+use App\Entity\Grammar;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class GrammarRepository extends EntityRepository
+class GrammarRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Grammar::class);
+    }
+
     /**
      * For ParamConverter purpose
      */

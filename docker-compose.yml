@@ -32,13 +32,19 @@ services:
     php:
         restart: unless-stopped
         build: ./docker/php
-        volumes: [ './symfony/:/var/www/symfony:cached' ]
+        volumes:
+            - type: bind
+              source: ./symfony
+              target: /var/www/symfony
 
     nginx:
         restart: unless-stopped
         build: ./docker/nginx
         ports: [ '80:80' ]
-        volumes: [ './symfony/:/var/www/symfony:cached' ]
+        volumes:
+            - type: bind
+              source: ./symfony
+              target: /var/www/symfony
 
     #    rabbitmq:
     #        image: library/rabbitmq:3-management
@@ -48,3 +54,7 @@ services:
         restart: unless-stopped
         image: schickling/mailcatcher
         ports: [ '1025:1080' ]
+
+#volumes:
+#    db:
+#    db-test:

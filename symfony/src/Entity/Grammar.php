@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GrammarRepository")
@@ -12,11 +13,13 @@ class Grammar extends AbstractEntity
 {
     /**
      * @ORM\Column(type="string")
+     * @Groups("grammar:list")
      */
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Example", mappedBy="grammar", cascade={"persist"}))
+     * @ORM\OneToMany(targetEntity="App\Entity\Example", mappedBy="grammar", cascade={"persist", "remove"}))
+     * @Groups("grammar:list")
      */
     private $examples = [];
 

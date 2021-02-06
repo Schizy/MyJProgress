@@ -2,10 +2,18 @@
 
 namespace App\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use App\Entity\Example;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class ExampleRepository extends EntityRepository
+class ExampleRepository extends ServiceEntityRepository
 {
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Example::class);
+    }
+
     public function getByState($state, $limit = null)
     {
         $qb = $this->createQueryBuilder('e')
