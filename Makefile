@@ -17,6 +17,13 @@ down:
 php: ## Run remove for db
 	$(EXEC) sh
 
+db-dump:
+	#Type password after command: root
+	$(DC) exec $(DATABASE_CONTAINER) mysqldump  --add-drop-table -uroot -p jpgrammar > $(filter-out $@,$(MAKECMDGOALS))
+
+db-load:
+	$(DC) exec $(DATABASE_CONTAINER) mysql -uroot -proot jpgrammar < $(filter-out $@,$(MAKECMDGOALS))
+
 db-remove: ## Run remove for db
 	$(EXEC) $(CON) doctrine:schema:drop -n
 
