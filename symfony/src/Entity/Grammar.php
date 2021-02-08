@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GrammarRepository")
@@ -14,6 +15,8 @@ class Grammar extends AbstractEntity
     /**
      * @ORM\Column(type="string")
      * @Groups("grammar:list")
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      */
     private $name;
 
