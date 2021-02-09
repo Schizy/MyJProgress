@@ -23,6 +23,7 @@ class Grammar extends AbstractEntity
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Example", mappedBy="grammar", cascade={"persist", "remove"}))
      * @Groups("grammar:list")
+     * @Assert\Valid
      */
     private $examples = [];
 
@@ -64,5 +65,16 @@ class Grammar extends AbstractEntity
         $this->examples[] = $example;
 
         return $this;
+    }
+
+    /**
+     * @param Example[] $examples
+     */
+    public function setExamples(array $examples)
+    {
+        foreach ($examples as $example) {
+            $example->setGrammar($this);
+            $this->addExample($example);
+        }
     }
 }
