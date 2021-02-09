@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractApiController extends AbstractController
@@ -34,19 +35,10 @@ abstract class AbstractApiController extends AbstractController
         $this->em->flush();
     }
 
-    //TODO: créer mon propre décorateur qui hérite de validator et qui formatte comme je veux
-    //TODO: le tagger pour le récupérer automatiquement quand j'injecte l'interface
-    protected function validate(AbstractEntity $entity): array
+    protected function validate(AbstractEntity $entity): ?\Symfony\Component\Validator\ConstraintViolationListInterface
     {
-        $errors = [];
-        foreach ($this->validator->validate($entity) as $violation) {
-            $errors[] = [
-                'property' => $violation->getPropertyPath(),
-                'message' => $violation->getMessage(),
-            ];
-        }
-
-        return $errors;
+        $errors = $this->validator->validate($entity);
+        return $errors->count() ? $errors : null;
     }
 
     protected function deserialize(Request $request, $class, $entityToPopulate = null)
@@ -58,7 +50,7 @@ abstract class AbstractApiController extends AbstractController
 
     protected function badRequest($errors): JsonResponse
     {
-        return parent::json(['status' => 400, 'errors' => $errors], Response::HTTP_BAD_REQUEST);
+        return parent::json($errors, Response::HTTP_BAD_REQUEST);
     }
 
     protected function json($data, int $status = 200, array $headers = [], array $context = []): JsonResponse
