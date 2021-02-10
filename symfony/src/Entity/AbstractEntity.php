@@ -49,6 +49,13 @@ abstract class AbstractEntity
         return $this->id;
     }
 
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     /**
      * @return \DateTime
      */

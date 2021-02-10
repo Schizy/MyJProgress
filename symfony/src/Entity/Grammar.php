@@ -60,7 +60,7 @@ class Grammar extends AbstractEntity
      *
      * @return Grammar
      */
-    public function addExample(Example $example)
+    public function addExample(Example $example): self
     {
         $this->examples[] = $example;
 
@@ -69,12 +69,26 @@ class Grammar extends AbstractEntity
 
     /**
      * @param Example[] $examples
+     *
+     * @return Grammar
      */
-    public function setExamples(array $examples)
+    public function setExamples(array $examples): self
     {
-        foreach ($examples as $example) {
-            $example->setGrammar($this);
-            $this->addExample($example);
+        foreach ($examples as $newOrModifiedExample) {
+            if (!$newOrModifiedExample->getId()) {
+                $this->addExample($newOrModifiedExample->setGrammar($this));
+                continue;
+            }
+
+            foreach ($this->examples as $example) {
+                if ($example->getId() == $newOrModifiedExample->getId()) {
+                    $example
+                        ->setPhrase($newOrModifiedExample->getPhrase())
+                        ->setTranslation($newOrModifiedExample->getTranslation());
+                }
+            }
         }
+
+        return $this;
     }
 }

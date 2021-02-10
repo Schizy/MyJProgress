@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractApiController extends AbstractController
@@ -57,7 +56,7 @@ abstract class AbstractApiController extends AbstractController
     {
         return parent::json($data, $status, $headers, $context + [
                 AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
-                    return $object->getName();
+                    return $object->getId();
                 },
             ]
         );
