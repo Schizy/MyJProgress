@@ -14,7 +14,7 @@ class GrammarApiController extends AbstractApiController
     #[Route('', name: 'grammars_list', methods: ['GET'])]
     public function list(GrammarRepository $grammarRepository): Response
     {
-        return $this->json($grammarRepository->list(), context: ['groups' => "grammar:list"]);
+        return $this->json($grammarRepository->list(), context: ['groups' => ["id", "grammar:list"]]);
     }
 
     #[Route('', name: 'grammars_create', methods: ['POST'])]
