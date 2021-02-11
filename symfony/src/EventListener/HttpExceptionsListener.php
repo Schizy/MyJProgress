@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 
 class HttpExceptionsListener
 {
@@ -16,6 +17,7 @@ class HttpExceptionsListener
         NotFoundHttpException::class,
         AccessDeniedHttpException::class,
         MethodNotAllowedHttpException::class,
+        NotEncodableValueException::class,
     ];
 
     public function __invoke(ExceptionEvent $event)
@@ -29,7 +31,7 @@ class HttpExceptionsListener
         }
 
         $status = match ($exceptionType) {
-            BadRequestHttpException::class => 400,
+            BadRequestHttpException::class, NotEncodableValueException::class => 400,
             NotFoundHttpException::class => 404,
             AccessDeniedHttpException::class => 403,
             MethodNotAllowedHttpException::class => 405,
