@@ -17,6 +17,9 @@ down:
 php: ## Run remove for db
 	$(EXEC) sh
 
+cs:
+	$(EXEC) tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src
+
 db-dump:
 	#Type password after command: root
 	$(DC) exec $(DATABASE_CONTAINER) mysqldump  --add-drop-table -uroot -p jpgrammar > $(filter-out $@,$(MAKECMDGOALS))

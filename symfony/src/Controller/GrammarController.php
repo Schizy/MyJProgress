@@ -54,7 +54,8 @@ class GrammarController extends AbstractController
                 'from' => "controller",
             ]));
 
-            $mailer->send((new NotificationEmail())
+            $mailer->send(
+                (new NotificationEmail())
                 ->subject('New example posted')
                 ->htmlTemplate('emails/example_notification.html.twig')
                 ->to($adminEmail)

@@ -18,3 +18,8 @@
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+
+### php-cs ###
+.php_cs.cache
+/tools

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 abstract class AbstractApiController extends AbstractController
 {
@@ -18,7 +19,8 @@ abstract class AbstractApiController extends AbstractController
         protected ValidatorInterface $validator,
         protected EntityManagerInterface $em,
         protected SerializerInterface $serializer,
-    ) {}
+    ) {
+    }
 
     protected function persist(AbstractEntity $entity): AbstractEntity
     {
@@ -34,7 +36,7 @@ abstract class AbstractApiController extends AbstractController
         $this->em->flush();
     }
 
-    protected function validate(AbstractEntity $entity): ?\Symfony\Component\Validator\ConstraintViolationListInterface
+    protected function validate(AbstractEntity $entity): ?ConstraintViolationListInterface
     {
         $errors = $this->validator->validate($entity);
         return $errors->count() ? $errors : null;
@@ -54,7 +56,11 @@ abstract class AbstractApiController extends AbstractController
 
     protected function json($data, int $status = 200, array $headers = [], array $context = []): JsonResponse
     {
-        return parent::json($data, $status, $headers, $context + [
+        return parent::json(
+            $data,
+            $status,
+            $headers,
+            $context + [
                 AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
                     return $object->getId();
                 },
