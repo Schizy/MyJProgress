@@ -33,18 +33,16 @@ services:
         restart: unless-stopped
         build: ./docker/php
         volumes:
-            - type: bind
-              source: ./symfony
-              target: /var/www/symfony
+            - './symfony:/var/www/symfony:cached'
+            - './symfony/vendor:/var/www/symfony/vendor:cached'
+            - './symfony/var:/var/www/symfony/var'
 
     nginx:
         restart: unless-stopped
         build: ./docker/nginx
         ports: [ '80:80' ]
         volumes:
-            - type: bind
-              source: ./symfony
-              target: /var/www/symfony
+            - './symfony:/var/www/symfony:cached'
 
     #    rabbitmq:
     #        image: library/rabbitmq:3-management
