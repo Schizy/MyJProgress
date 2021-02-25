@@ -1,0 +1,156 @@
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 1000px;
+            margin: 100px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .line {
+            padding: 6px;
+        }
+
+        .semi-line {
+            padding: 3px;
+        }
+
+        h1 {
+            padding: 0;
+            margin: 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 10px;
+            margin: 0;
+        }
+
+        .interspace {
+            margin: 100px;
+        }
+
+
+        .right {
+            text-align: right;
+        }
+
+        thead {
+            background: #ddd;
+        }
+
+        thead tr th {
+            padding: 8px;
+            border: 1px solid #555;
+        }
+
+        .total {
+            background: #ddd;
+            padding: 7px;
+        }
+
+        .borders td {
+
+            border: 1px solid #555;
+        }
+
+        table.no-border tr  td {
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td><h1>{{ my.name }}</h1></td>
+        <td align="right"><h1>FACTURE</h1></td>
+    </tr>
+    <tr>
+        <td>
+            <div class="semi-line">{{ my.address }}</div>
+            <div class="semi-line">{{ my.city }}</div>
+            <div class="semi-line">SIRET n° {{ my.siret }}</div>
+        </td>
+        <td></td>
+    </tr>
+</table>
+<div class="interspace"></div>
+    <table>
+
+    <tr>
+        <td>
+            <div class="semi-line"><strong>Facturé à</strong></div>
+            <div class="semi-line">{{ client.name }}</div>
+            <div class="semi-line">{{ client.address }}</div>
+            <div class="semi-line">{{ client.city }}</div>
+            <div class="semi-line">SIRET n° {{ client.siret }}</div>
+        </td>
+        <td align="right" valign="top">
+            <table style="width: 250px">
+                <tr>
+                    <td>
+                        <div class="line"><strong>Facture n°</strong></div>
+                        <div class="line"><strong>Date</strong></div>
+                        <div class="line"><strong>Échéance</strong></div>
+                    </td>
+                    <td class="right">
+                        <div class="line">006</div>
+                        <div class="line">31/08/2019</div>
+                        <div class="line">31/09/2019</div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<div class="interspace"></div>
+
+<table class="right borders">
+    <thead>
+    <tr>
+        <th>QTÉ</th>
+        <th>DÉSIGNATION</th>
+        <th>PRIX UNIT. HT</th>
+        <th>MONTANT HT</th>
+    </tr>
+    </thead>
+    <tr>
+        <td>15</td>
+        <td>Jours homme en Développement Back end</td>
+        <td>400,00</td>
+        <td>6 000,00</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="no-border"></td>
+        <td>Total HT</td>
+        <td>6 000,00</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="no-border"></td>
+        <td>TVA 20.0%</td>
+        <td>1 200,00</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="no-border"></td>
+        <td><h1>Total</h1></td>
+        <td class="total"><h1>7 200,00 €</h1></td>
+    </tr>
+</table>
+</body>
+</html>
+
+<p>
+    <strong>Conditions et modalités de paiement</strong><br>
+    Numéro de TVA: {{ my.tva }}<br>
+    Paiement à 30 jours dès réception de facture au compte bancaire suivant:
+    <br><br>
+    {{ my.bank|nl2br }}
+</p>
