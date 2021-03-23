@@ -3,8 +3,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            width: 1000px;
-            margin: 100px auto;
+            width: 700px;
+            margin: 0 auto;
         }
 
         table {
@@ -60,7 +60,7 @@
             border: 1px solid #555;
         }
 
-        table.no-border tr  td {
+        table.no-border tr td {
             border: none;
         }
 
@@ -82,7 +82,7 @@
     </tr>
 </table>
 <div class="interspace"></div>
-    <table>
+<table>
 
     <tr>
         <td>
@@ -92,10 +92,10 @@
             <div class="semi-line">{{ client.city }}</div>
             <div class="semi-line">SIRET n° {{ client.siret }}</div>
         </td>
-        <td align="right" valign="top">
-            <table style="width: 250px">
+        <td  width="250" align="right" valign="top">
+            <table width="200">
                 <tr>
-                    <td>
+                    <td align="right" style="text-align: right">
                         <div class="line"><strong>Facture n°</strong></div>
                         <div class="line"><strong>Date</strong></div>
                         <div class="line"><strong>Échéance</strong></div>
@@ -144,8 +144,6 @@
         <td class="total"><h1>7 200,00 €</h1></td>
     </tr>
 </table>
-</body>
-</html>
 
 <p>
     <strong>Conditions et modalités de paiement</strong><br>
@@ -154,3 +152,6 @@
     <br><br>
     {{ my.bank|nl2br }}
 </p>
+
+</body>
+</html>
