@@ -18,6 +18,7 @@ class HttpExceptionsListener
         AccessDeniedHttpException::class,
         MethodNotAllowedHttpException::class,
         NotEncodableValueException::class,
+        "Error"
     ];
 
     public function __invoke(ExceptionEvent $event)
@@ -35,11 +36,16 @@ class HttpExceptionsListener
             NotFoundHttpException::class => 404,
             AccessDeniedHttpException::class => 403,
             MethodNotAllowedHttpException::class => 405,
+            "Error" => 500
         };
 
         $event->setResponse(new JsonResponse([
             'status' => $status,
-            'message' => $status == 404 ? 'This resource does not exit.' : $exception->getMessage(),
+            'message' => match ($status) {
+                404 => 'This resource does not exist.',
+                500 => 'Internal Server Error',
+                default => $exception->getMessage(),
+            },
         ], $status));
     }
 }
