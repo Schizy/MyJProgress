@@ -5,15 +5,29 @@ namespace App\Tests\Controller;
 use App\Entity\Grammar;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class GrammarControllerPhpTest extends WebTestCase
+class GrammarControllerTest extends WebTestCase
 {
+    private $em;
+    private $repository;
+    private $client;
+
+    public function setUp()
+    {
+        $this->client = static::createClient();
+
+        $this->em = $this->client->getKernel()->getContainer()->get('doctrine')->getManager();
+        $this->repository = $this->em->getRepository(Grammar::class);
+
+        //Copy a backup test sqlite database instead of loading every fixture/purging each time
+        copy(__DIR__ . '/../test.sqlite', __DIR__ . '/../../var/data/test.sqlite');
+    }
+
     /**
      * @test
      */
     public function list()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/grammars/');
+        $crawler = $this->client->request('GET', '/grammars/');
 
         $this->assertSame(1, $crawler->count('.post-title'));
         $this->assertResponseIsSuccessful();
@@ -25,13 +39,13 @@ class GrammarControllerPhpTest extends WebTestCase
      */
     public function rule()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/grammars/1-ば〜ほど');
+        $crawler = $this->client->request('GET', '/grammars/1-ば〜ほど');
 
         $this->assertSame(1, $crawler->filter('.post-title')->count());
 
         $this->assertResponseIsSuccessful();
-        $grammar = $client->getContainer()->get('doctrine')->getRepository(Grammar::class)->find(1);
+
+        $grammar = $this->repository->find(1);
         $this->assertSelectorTextContains('h1', $grammar->getName());
     }
 
@@ -41,14 +55,13 @@ class GrammarControllerPhpTest extends WebTestCase
      */
     public function ruleAddExample()
     {
-        $client = static::createClient();
-        $client->request('GET', '/grammars/1-ば〜ほど');
+        $this->client->request('GET', '/grammars/1-ば〜ほど');
 
-        $client->submitForm('Valider', [
+        $this->client->submitForm('Valider', [
             'example_form[phrase]' => 'ここはどこ',
             'example_form[translation]' => 'On est où ?!',
         ]);
-        $crawler = $client->followRedirect();
+        $crawler = $this->client->followRedirect();
         $this->assertSame(2, $crawler->filter('.post-title')->count());
     }
 }

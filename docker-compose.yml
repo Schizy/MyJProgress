@@ -11,17 +11,6 @@ services:
             - MYSQL_DATABASE
             - MYSQL_USER
             - MYSQL_PASSWORD
-    db-test:
-        image: mysql:5.7
-        ports: [ '3307:3306' ]
-        restart: unless-stopped
-        volumes:
-            - './data/db-test:/var/lib/mysql'
-        environment:
-            - MYSQL_TEST_ROOT_PASSWORD
-            - MYSQL_TEST_DATABASE
-            - MYSQL_TEST_USER
-            - MYSQL_TEST_PASSWORD
 
     adminer:
         image: adminer:4.7
@@ -52,7 +41,3 @@ services:
         restart: unless-stopped
         image: schickling/mailcatcher
         ports: [ '1025:1080' ]
-
-#volumes:
-#    db:
-#    db-test:
