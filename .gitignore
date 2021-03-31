@@ -8,6 +8,7 @@ data
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+/public/code-coverage/
 /var/
 /vendor/
 tests/test.sqlite

@@ -11,7 +11,7 @@ class GrammarControllerTest extends WebTestCase
     private $repository;
     private $client;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->client = static::createClient();
 

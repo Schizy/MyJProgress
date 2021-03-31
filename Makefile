@@ -1,14 +1,12 @@
 DC=docker-compose
-CONTAINER=php
-DATABASE_CONTAINER=db
-EXEC=$(DC) exec $(CONTAINER)
-PHP = php
-CON = $(PHP) bin/console
+EXEC=$(DC) exec php
+CON =  $(EXEC) bin/console
+DB=$(DC) exec db
 
 ##
-## Database
+## Docker-Compose
 ##---------------------------------------------------------------------------
-.PHONY: db-test
+.PHONY: up
 
 up:
 	$(DC) up -d
@@ -17,45 +15,41 @@ down:
 php: ## Run remove for db
 	$(EXEC) sh
 
-cs:
-	$(EXEC) tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src
-
-
-test-db:
-	$(EXEC) bin/console d:d:c -e test
-	$(EXEC) bin/console d:s:c -e test
-	$(EXEC) bin/console d:f:l -n -e test
-	$(EXEC) mv var/data/test.sqlite tests/test.sqlite
+##
+## Database
+##---------------------------------------------------------------------------
 
 db-dump:
 	#Type password after command: root
-	$(DC) exec $(DATABASE_CONTAINER) mysqldump  --add-drop-table -uroot -p jpgrammar > $(filter-out $@,$(MAKECMDGOALS))
+	 $(DB) mysqldump  --add-drop-table -uroot -p jpgrammar > $(filter-out $@,$(MAKECMDGOALS))
 
 db-load:
-	$(DC) exec $(DATABASE_CONTAINER) mysql -uroot -proot jpgrammar < $(filter-out $@,$(MAKECMDGOALS))
+	$(DB) mysql -uroot -proot jpgrammar < $(filter-out $@,$(MAKECMDGOALS))
 
-db-remove: ## Run remove for db
-	$(EXEC) $(CON) doctrine:schema:drop -n
-
-db-migrate: ## Run fixture for db
-	$(EXEC) $(CON) doctrine:migrations:migrate -n
-
-db-fixture: ## Run fixture for db
-	$(EXEC) $(CON) doctrine:fixtures:load -n
-
-db-test: db-remove db-migrate db-fixture
-
-db-migration:  ## Runs the mongo DB migration
 db-migration:
-	$(EXEC) ./bin/console doctrine:migrations:migrate --no-interaction
+	$(CON) doctrine:migrations:migrate --no-interaction
 
 ##
 ## Tests
 ##---------------------------------------------------------------------------
-.PHONY: unit-test unit-test-coverage
+.PHONY: test
 
-unit-test: ## Run unit tests
+test: ## Run unit tests
 	$(EXEC) bin/phpunit
 
-unit-test-coverage: ## Run unit tests with code coverage generate
+test-coverage: ## Run unit tests with code coverage generate
 	$(EXEC) bin/phpunit --coverage-html public/code-coverage
+
+#Generate tests' database
+test-db:
+	$(EXEC) rm var/data/test.sqlite
+	$(CON) d:d:c -e test
+	$(CON) d:s:c -e test
+	$(CON) d:f:l -n -e test
+	$(EXEC) mv var/data/test.sqlite tests/test.sqlite
+
+##
+## Code Style
+##---------------------------------------------------------------------------
+cs:
+	$(EXEC) tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src
