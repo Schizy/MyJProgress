@@ -20,6 +20,13 @@ php: ## Run remove for db
 cs:
 	$(EXEC) tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src
 
+
+test-db:
+	$(EXEC) bin/console d:d:c -e test
+	$(EXEC) bin/console d:s:c -e test
+	$(EXEC) bin/console d:f:l -n -e test
+	$(EXEC) mv var/data/test.sqlite tests/test.sqlite
+
 db-dump:
 	#Type password after command: root
 	$(DC) exec $(DATABASE_CONTAINER) mysqldump  --add-drop-table -uroot -p jpgrammar > $(filter-out $@,$(MAKECMDGOALS))

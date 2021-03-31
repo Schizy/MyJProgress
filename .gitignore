@@ -1,7 +1,6 @@
 .idea
 data
 .env
-/symfony/.env
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -11,6 +10,7 @@ data
 /public/bundles/
 /var/
 /vendor/
+tests/test.sqlite
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
