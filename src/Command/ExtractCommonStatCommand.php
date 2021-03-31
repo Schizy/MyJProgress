@@ -18,8 +18,7 @@ class ExtractCommonStatCommand extends Command
     public function __construct(
         protected KanjiRepository $repository,
         protected EntityManagerInterface $em,
-    )
-    {
+    ) {
         parent::__construct(self::$defaultName);
     }
 
