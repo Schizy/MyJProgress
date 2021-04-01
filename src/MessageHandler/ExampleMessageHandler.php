@@ -17,9 +17,9 @@ class ExampleMessageHandler implements MessageHandlerInterface
 
     private $logger;
 
-    public function __construct(EntityManagerInterface $entityManager, WorkflowInterface $exampleStateMachine, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, WorkflowInterface $exampleStateMachine, LoggerInterface $logger)
     {
-        $this->em = $entityManager;
+        $this->em = $em;
         $this->workflow = $exampleStateMachine;
         $this->logger = $logger;
     }

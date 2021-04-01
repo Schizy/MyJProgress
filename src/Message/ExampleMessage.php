@@ -8,12 +8,6 @@ class ExampleMessage
 
     private $context;
 
-    /**
-     * ExampleMessage constructor.
-     *
-     * @param int   $id
-     * @param array $context
-     */
     public function __construct(int $id, array $context = [])
     {
         $this->id = $id;

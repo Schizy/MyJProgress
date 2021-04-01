@@ -1,10 +1,21 @@
 framework:
     messenger:
+        buses:
+            messenger.bus.default:
+                middleware:
+                    - App\Messenger\DoNothingMiddleware
 #        failure_transport: failed
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                retry_strategy:
+                    service: null #todo: try to create a retry service implementing RetryStrategyInterface
+                    max_retries: 3
+                    delay: 30000 #30 sec, then 1min then 2min so 3min30 in total
+                    multiplier: 2
+                    max_delay: 0
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
 
