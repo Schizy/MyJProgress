@@ -4,7 +4,7 @@ framework:
             messenger.bus.default:
                 middleware:
                     - App\Messenger\DoNothingMiddleware
-#        failure_transport: failed
+        failure_transport: failed
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
@@ -16,7 +16,7 @@ framework:
                     delay: 30000 #30 sec, then 1min then 2min so 3min30 in total
                     multiplier: 2
                     max_delay: 0
-            # failed: 'doctrine://default?queue_name=failed'
+            failed: '%env(MESSENGER_TRANSPORT_DSN)%?queues[failed]'
             # sync: 'sync://'
 
         routing:

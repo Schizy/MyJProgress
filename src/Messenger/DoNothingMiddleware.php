@@ -14,7 +14,11 @@ class DoNothingMiddleware implements MiddlewareInterface, LoggerAwareInterface
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-        $this->logger->info("I DID IT! I DID NOTHING!");
+        if (null === $envelope->last(UniqueIdStamp::class)) {
+            $envelope = $envelope->with(new UniqueIdStamp());
+        }
+
+        $this->logger->info("Oh Crap! I did something!");
 
         return $stack->next()->handle($envelope, $stack);
     }
