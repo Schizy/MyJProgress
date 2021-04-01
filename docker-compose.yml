@@ -15,8 +15,7 @@ services:
     adminer:
         image: adminer:4.7
         restart: unless-stopped
-        ports:
-            - 8080:8080
+        ports: [ '8080:8080' ]
 
     php:
         restart: unless-stopped
@@ -38,8 +37,11 @@ services:
             - /var/www/data/ # exclude data
 
     rabbitmq:
-        image: library/rabbitmq:3-management
-        ports: [ '8081:5672' ]
+        image: rabbitmq:3.8-management
+        ports: [ '15672:15672' ]
+        environment:
+            - RABBITMQ_DEFAULT_USER
+            - RABBITMQ_DEFAULT_PASS
 
     mailer:
         restart: unless-stopped

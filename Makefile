@@ -15,6 +15,9 @@ d: down
 down: ## docker-compose down
 	$(DC) down -v --remove-orphans
 
+r: restart
+restart: down up ## docker compose down & up
+
 php: ## Enters the PHP container
 	$(PHP) sh
 

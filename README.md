@@ -12,6 +12,7 @@ Make commands
 
 - `make up` (or `make u`) to launch the containers
 - `make down` (or `make d`) to stop and remove the containers
+- `make restart` (or `make r`) to restart the containers
 - `make php` to enter the php container
 
 *Database*
