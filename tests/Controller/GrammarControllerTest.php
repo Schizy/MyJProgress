@@ -1,25 +1,22 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace Controller;
 
 use App\Entity\Grammar;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Repository\GrammarRepository;
 
-class GrammarControllerTest extends WebTestCase
+class GrammarControllerTest extends FunctionalControllerTest
 {
-    private $em;
+    /**
+     * @var GrammarRepository
+     */
     private $repository;
-    private $client;
 
-    public function setUp() :void
+    public function setUp(): void
     {
-        $this->client = static::createClient();
+        parent::setUp();
 
-        $this->em = $this->client->getKernel()->getContainer()->get('doctrine')->getManager();
         $this->repository = $this->em->getRepository(Grammar::class);
-
-        //Copy a backup test sqlite database instead of loading every fixture/purging each time
-        copy(__DIR__ . '/../test.sqlite', __DIR__ . '/../../var/data/test.sqlite');
     }
 
     /**

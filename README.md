@@ -23,9 +23,9 @@ Make commands
 
 *Tests*
 
+- `make test-db` (or `make td`) to generate the test database using the fixtures
 - `make test` (or `make t`) to run tests
 - `make test-coverage` (or `make tc`) to run tests with coverage
-- `make test-db` (or `make td`) to generate the test database using the fixtures
 
 *Code style*
 
