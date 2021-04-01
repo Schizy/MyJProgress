@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Example;
 use App\Entity\Grammar;
 use App\Form\ExampleFormType;
+use App\Message\ExampleMessage;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +30,7 @@ class GrammarController extends AbstractController
         $this->bus = $bus;
     }
 
-    #[Route("", name:"grammar-list")]
+    #[Route("", name: "grammar-list")]
     public function list()
     {
         return $this->render('grammar/list.html.twig', [
@@ -37,7 +39,7 @@ class GrammarController extends AbstractController
         ]);
     }
 
-    #[Route("{id}-{rule}", name:"grammar-rule")]
+    #[Route("{id}-{rule}", name: "grammar-rule")]
     public function rule(Request $request, Grammar $grammar, $adminEmail, MailerInterface $mailer): Response
     {
         $example = (new Example())->setGrammar($grammar);
@@ -48,16 +50,16 @@ class GrammarController extends AbstractController
             $this->em->persist($example);
             $this->em->flush();
 
-//            $this->bus->dispatch(new ExampleMessage($example->getId(), [
-//                'from' => "controller",
-//            ]));
-//
+            $this->bus->dispatch(new ExampleMessage($example->getId(), [
+                'from' => "controller",
+            ]));
+
 //            $mailer->send(
 //                (new NotificationEmail())
-//                ->subject('New example posted')
-//                ->htmlTemplate('emails/example_notification.html.twig')
-//                ->to($adminEmail)
-//                ->context(['example' => $example])
+//                    ->subject('New example posted')
+//                    ->htmlTemplate('emails/example_notification.html.twig')
+//                    ->to($adminEmail)
+//                    ->context(['example' => $example])
 //            );
 
             return $this->redirect($request->getRequestUri());
@@ -70,7 +72,7 @@ class GrammarController extends AbstractController
         ]);
     }
 
-    #[Route("add", name:"grammar-add")]
+    #[Route("add", name: "grammar-add")]
     public function add()
     {
 //        $grammar = new Grammar();

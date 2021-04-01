@@ -37,9 +37,9 @@ services:
             - './:/var/www:cached'
             - /var/www/data/ # exclude data
 
-    #    rabbitmq:
-    #        image: library/rabbitmq:3-management
-    #        ports: [ '8081:5672' ]
+    rabbitmq:
+        image: library/rabbitmq:3-management
+        ports: [ '8081:5672' ]
 
     mailer:
         restart: unless-stopped
