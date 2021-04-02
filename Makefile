@@ -22,14 +22,17 @@ php: ## Enters the PHP container
 	$(PHP) sh
 
 ## —— Database 📑 ———————————————————————————————————————————————————————————————
-dd: db-dump
-db-dump: ## Backup the database as a SQL backup file (the filename as an argument)
-	#Type password after command: root
-	 $(DB) mysqldump  --add-drop-table -uroot -p jpgrammar > $(filter-out $@,$(MAKECMDGOALS))
+#mysqldump --defaults-extra-file=/path/.sqlpwd [database] > [desiredoutput].sql
+#[mysqldump]
+#user=username
+#password=password
+#sudo chmod 600 /path/.sqlpwd && sudo chown $USER:nogroup /path/.sqlpwd
 
-dl: db-load
+db-dump: ## Backup the database as a SQL backup file (the filename as an argument)
+	 $(DB) mysqldump -uroot -proot jpgrammar | sed '1d' > $(filter-out $@,$(MAKECMDGOALS))
+
 db-load: ## Load a SQL backup file (the filename as an argument)
-	$(DB) mysql -uroot -proot jpgrammar < $(filter-out $@,$(MAKECMDGOALS))
+	docker exec -i $$(docker-compose ps -q db) mysql -uroot -proot jpgrammar < $(filter-out $@,$(MAKECMDGOALS)) 2> /dev/null
 
 dm: db-migration
 db-migration: ## Run doctrine migrations

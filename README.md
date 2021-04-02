@@ -17,8 +17,8 @@ Make commands
 
 *Database*
 
-- `make db-dump FILENAME` (or `make dd`) to make a SQL backup
-- `make load FILENAME` (or `make dl`) to load a SQL backup
+- `make db-dump mydumpfile.sql` to make a SQL backup file
+- `make db-load mydumpfile.sql` to load a SQL backup file
 - `make db-migration` (or `make dm`) to run the doctrine migrations
 
 *Tests*
