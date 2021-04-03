@@ -7,6 +7,11 @@ anymore, this is the proof you are :)
 
 Make commands
 -------------
+*Help*
+
+- `make` (or `make help`) shows a list of all commands
+
+![Image](./make.png)
 
 *Docker*
 
@@ -30,3 +35,7 @@ Make commands
 *Code style*
 
 - `make code-style` (or `make cs`) to fix the code-style
+
+*Rabbit MQ*
+
+- `make consume` (or `make c` ) to start consuming messages

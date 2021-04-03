@@ -25,8 +25,8 @@ services:
             - /var/www/data/ # exclude data
             - './vendor:/var/www/vendor:cached'
             - './var:/var/www/var'
-        environment:
-            XDEBUG_CONFIG: client_host=192.168.117.1
+#        environment:
+#            XDEBUG_CONFIG: client_host=192.168.117.1
 
     nginx:
         restart: unless-stopped

@@ -48,7 +48,7 @@ test-coverage: ## Run tests with code coverage
 	$(PHP) bin/phpunit --coverage-html public/code-coverage
 
 td: test-db
-test-db:
+test-db: ## Generate the test database using the fixtures
 	$(PHP) rm var/data/test.sqlite
 	$(CONS) d:d:c -e test
 	$(CONS) d:s:c -e test
@@ -62,3 +62,7 @@ help: ## Generates this list
 cs: code-style
 code-style: ## Fix code style
 	$(PHP) tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src
+
+c: consume
+consume: ## Start consuming messages
+	$(CONS) messenger:consume -vv

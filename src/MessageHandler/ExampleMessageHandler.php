@@ -26,6 +26,8 @@ class ExampleMessageHandler implements MessageHandlerInterface
 
     public function __invoke(ExampleMessage $message)
     {
+        throw new \Exception("J'ai pas envie");
+
         if (!$example = $this->em->getRepository(Example::class)->find($message->getId())) {
             return;
         }
@@ -34,7 +36,7 @@ class ExampleMessageHandler implements MessageHandlerInterface
             $this->workflow->apply($example, 'publish');
             $this->em->flush();
         } else {
-            $this->logger->alert('Transition "publish" rejected for example #'.$example->getId());
+            $this->logger->alert('Transition "publish" rejected for example #' . $example->getId());
         }
     }
 }
