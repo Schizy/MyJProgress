@@ -4,15 +4,11 @@ namespace App\Message;
 
 class ExampleMessage
 {
-    private $id;
-
-    private $context;
-
-    public function __construct(int $id, array $context = [])
-    {
-        $this->id = $id;
-        $this->context = $context;
-    }
+    public function __construct(
+        private int $id,
+        private array $context = []
+    )
+    {}
 
     public function getId(): int
     {

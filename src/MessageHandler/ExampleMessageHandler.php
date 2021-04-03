@@ -17,16 +17,16 @@ class ExampleMessageHandler implements MessageHandlerInterface
 
     private $logger;
 
-    public function __construct(EntityManagerInterface $em, WorkflowInterface $exampleStateMachine, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, WorkflowInterface $exampleStateMachine, LoggerInterface $amqpLogger)
     {
         $this->em = $em;
         $this->workflow = $exampleStateMachine;
-        $this->logger = $logger;
+        $this->logger = $amqpLogger;
     }
 
     public function __invoke(ExampleMessage $message)
     {
-        throw new \Exception("J'ai pas envie");
+        $this->logger->info('[{id}] has been received - Handler', ['id' => $message->getId()]);
 
         if (!$example = $this->em->getRepository(Example::class)->find($message->getId())) {
             return;
