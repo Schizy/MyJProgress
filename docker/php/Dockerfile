@@ -3,7 +3,8 @@ FROM php:8.0.3-fpm-alpine
 RUN apk add --update \
     $PHPIZE_DEPS \
     curl \
-    git
+    git \
+	supervisor
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
@@ -18,8 +19,13 @@ ADD php.ini /etc/php/cli/conf.d/
 ADD php.ini /usr/local/etc/php
 ADD php-fpm.conf /etc/php/php-fpm.d/
 
+#Supervisor
+RUN mkdir -p /var/log/supervisor
+COPY supervisor.conf /etc/supervisor/conf.d/supervisord.conf
+
 WORKDIR /var/www
 
 EXPOSE 9000
 
 CMD ["php-fpm", "-F"]
+#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

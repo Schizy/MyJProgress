@@ -21,6 +21,13 @@ restart: down up ## docker compose down & up
 php: ## Enters the PHP container
 	$(PHP) sh
 
+rp: rebuild-php
+rebuild-php: down
+	docker build docker/php
+	docker rmi myjprogress_php
+	docker tag $$(docker images -q | head -n 1) myjprogress_php
+	$(DC) up -d #A way to use just "up" here?
+
 ## —— Database 📑 ———————————————————————————————————————————————————————————————
 #mysqldump --defaults-extra-file=/path/.sqlpwd [database] > [desiredoutput].sql
 #[mysqldump]
