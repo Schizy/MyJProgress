@@ -38,8 +38,7 @@ services:
         build: ./docker/nginx
         ports: [ '80:80' ]
         volumes:
-            - './:/var/www:cached'
-            - /var/www/data/ # exclude data
+            - './public:/var/www/public'
 
     rabbitmq:
         image: rabbitmq:3.8-management
