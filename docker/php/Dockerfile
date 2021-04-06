@@ -24,9 +24,12 @@ RUN mkdir -p /var/log/supervisor
 RUN mkdir /etc/supervisor.d/
 COPY supervisor.ini /etc/supervisor.d/supervisor.ini
 
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
 WORKDIR /var/www
 
 EXPOSE 9000
 
-CMD ["php-fpm", "-F"]
-#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+#CMD ["php-fpm", "-F"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

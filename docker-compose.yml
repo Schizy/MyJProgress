@@ -18,6 +18,9 @@ services:
         ports: [ '8080:8080' ]
 
     php:
+        depends_on:
+            - rabbitmq
+            - db
         restart: unless-stopped
         build: ./docker/php
         volumes:
@@ -29,6 +32,8 @@ services:
 #            XDEBUG_CONFIG: client_host=192.168.117.1
 
     nginx:
+        depends_on:
+            - php
         restart: unless-stopped
         build: ./docker/nginx
         ports: [ '80:80' ]
