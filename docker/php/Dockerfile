@@ -21,11 +21,12 @@ ADD php-fpm.conf /etc/php/php-fpm.d/
 
 #Supervisor
 RUN mkdir -p /var/log/supervisor
-COPY supervisor.conf /etc/supervisor/conf.d/supervisord.conf
+RUN mkdir /etc/supervisor.d/
+COPY supervisor.ini /etc/supervisor.d/supervisor.ini
 
 WORKDIR /var/www
 
 EXPOSE 9000
 
 CMD ["php-fpm", "-F"]
-#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
