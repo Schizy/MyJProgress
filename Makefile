@@ -56,7 +56,7 @@ test-coverage: ## Run tests with code coverage
 
 td: test-db
 test-db: ## Generate the test database using the fixtures
-	$(PHP) rm var/data/test.sqlite
+	$(PHP) rm -f var/data/test.sqlite
 	$(CONS) d:d:c -e test
 	$(CONS) d:s:c -e test
 	$(CONS) d:f:l -n -e test
