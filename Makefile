@@ -70,6 +70,9 @@ cs: code-style
 code-style: ## Fix code style
 	$(PHP) tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src
 
+redis: ## Enters redis-cli
+	$(DC) exec redis redis-cli
+
 c: consume
 consume: ## Runs messenger:consume
 	$(CONS) messenger:consume -vv

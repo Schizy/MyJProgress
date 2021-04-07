@@ -48,6 +48,12 @@ services:
             - RABBITMQ_DEFAULT_PASS
 
     mailer:
-        restart: unless-stopped
         image: schickling/mailcatcher
+        restart: unless-stopped
         ports: [ '1025:1080' ]
+
+    redis:
+        image: library/redis:6.2-alpine
+        restart: unless-stopped
+        volumes:
+            - './data/redis:/data'

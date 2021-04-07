@@ -40,3 +40,7 @@ Make commands
 *Rabbit MQ*
 
 - `make consume` (or `make c` ) to run messenger:consume
+
+*Redis*
+
+- `make redis` to enter the redis-cli
