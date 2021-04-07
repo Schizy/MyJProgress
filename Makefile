@@ -22,7 +22,7 @@ php: ## Enters the PHP container
 	$(PHP) sh
 
 rp: rebuild-php
-rebuild-php: down
+rebuild-php: down ## Rebuilds the PHP image
 	docker build docker/php
 	docker rmi myjprogress_php
 	docker tag $$(docker images -q | head -n 1) myjprogress_php
@@ -38,24 +38,24 @@ rebuild-php: down
 db-dump: ## Backup the database as a SQL backup file (the filename as an argument)
 	 $(DB) mysqldump -uroot -proot jpgrammar | sed '1d' > $(filter-out $@,$(MAKECMDGOALS))
 
-db-load: ## Load a SQL backup file (the filename as an argument)
+db-load: ## Loads a SQL backup file (the filename as an argument)
 	docker exec -i $$(docker-compose ps -q db) mysql -uroot -proot jpgrammar < $(filter-out $@,$(MAKECMDGOALS)) 2> /dev/null
 
 dm: db-migration
-db-migration: ## Run doctrine migrations
+db-migration: ## Runs doctrine migrations
 	$(CONS) doctrine:migrations:migrate --no-interaction
 
 ## —— Tests 🤖 ———————————————————————————————————————————————————————————————
 t: test
-test: ## Run tests
+test: ## Runs tests
 	$(PHP) bin/phpunit
 
 tc: test-coverage
-test-coverage: ## Run tests with code coverage
+test-coverage: ## Runs tests with code coverage
 	$(PHP) bin/phpunit --coverage-html public/code-coverage
 
 td: test-db
-test-db: ## Generate the test database using the fixtures
+test-db: ## Generates the test database using the fixtures
 	$(PHP) rm -f var/data/test.sqlite
 	$(CONS) d:d:c -e test
 	$(CONS) d:s:c -e test
@@ -71,5 +71,5 @@ code-style: ## Fix code style
 	$(PHP) tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src
 
 c: consume
-consume: ## Start consuming messages
+consume: ## Runs messenger:consume
 	$(CONS) messenger:consume -vv

@@ -19,6 +19,7 @@ Make commands
 - `make down` (or `make d`) to stop and remove the containers
 - `make restart` (or `make r`) to restart the containers
 - `make php` to enter the php container
+- `make rebuil-php` (or `make rp`) to rebuild the php image
 
 *Database*
 
@@ -38,4 +39,4 @@ Make commands
 
 *Rabbit MQ*
 
-- `make consume` (or `make c` ) to start consuming messages
+- `make consume` (or `make c` ) to run messenger:consume
