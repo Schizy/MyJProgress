@@ -10,9 +10,8 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 #I will use Docker-Php-Extension Installer to handle PHP extensions from now ❤
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-     install-php-extensions @composer amqp xdebug
+     install-php-extensions @composer amqp xdebug xsl
 
 ADD php.ini /etc/php/conf.d/
 ADD php.ini /etc/php/cli/conf.d/

@@ -7,8 +7,8 @@ class ExampleMessage
     public function __construct(
         private int $id,
         private array $context = []
-    )
-    {}
+    ) {
+    }
 
     public function getId(): int
     {

@@ -3,6 +3,7 @@
 namespace App\Messenger;
 
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
@@ -30,6 +31,10 @@ class DoNothingMiddleware implements MiddlewareInterface
         //Since the middleware call themselves in circle, we continue the chain
         //to have the other middlewares executed before we check the stamps
         $envelope = $stack->next()->handle($envelope, $stack);
+        if ($envelope->getMessage() instanceof SendEmailMessage) {
+            return $envelope;
+        }
+
         $context = [
             'id' => $envelope->getMessage()->getId(),
             'uid' => $envelope->last(UniqueIdStamp::class)->getUniqueId(),

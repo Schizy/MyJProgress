@@ -54,13 +54,13 @@ class GrammarController extends AbstractController
                 'from' => "controller",
             ]));
 
-//            $mailer->send(
-//                (new NotificationEmail())
-//                    ->subject('New example posted')
-//                    ->htmlTemplate('emails/example_notification.html.twig')
-//                    ->to($adminEmail)
-//                    ->context(['example' => $example])
-//            );
+            $mailer->send(
+                (new NotificationEmail())
+                    ->subject('New example posted')
+                    ->htmlTemplate('emails/example_notification.html.twig')
+                    ->to($adminEmail)
+                    ->context(['example' => $example])
+            );
 
             return $this->redirect($request->getRequestUri());
         }
@@ -75,28 +75,6 @@ class GrammarController extends AbstractController
     #[Route("add", name: "grammar-add")]
     public function add()
     {
-//        $grammar = new Grammar();
-//        $grammar
-//            ->setName('ば〜ほど')
-//            ->addExample(
-//                (new Example())
-//                    ->setPhrase('よめば　よむほど　簡単になる。')
-//                    ->setTranslation('Plus tu lis plus ça devient facile.')
-//                    ->setGrammar($grammar)
-//            )->addExample(
-//                (new Example())
-//                    ->setPhrase('よめば　よむほど　簡単になる。2')
-//                    ->setTranslation('Plus tu lis plus ça devient facile. 2')
-//                    ->setGrammar($grammar)
-//            )->addExample(
-//                (new Example())
-//                    ->setPhrase('よめば　よむほど　簡単になる。3')
-//                    ->setTranslation('Plus tu lis plus ça devient facile. 3')
-//                    ->setGrammar($grammar)
-//            );
-//        $this->em->persist($grammar);
-//        $this->em->flush();
-
         return $this->render('grammar/add.html.twig', [
             'title' => 'Nouvelle grammaire',
             'grammars' => $this->em->getRepository(Grammar::class)->findAll(),
