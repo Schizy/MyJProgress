@@ -1,0 +1,8 @@
+monolog:
+    channels: [ "amqp" ]
+    handlers:
+        amqp:
+            type: stream
+            path: "%kernel.logs_dir%/amqp_%kernel.environment%.log"
+            level: debug
+            channels: [ "amqp" ]
