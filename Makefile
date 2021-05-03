@@ -76,3 +76,9 @@ redis: ## Enters redis-cli
 c: consume
 consume: ## Runs messenger:consume
 	$(CONS) messenger:consume -vv
+
+ut: update-translations
+update-translations: ## Updates translations files (for messages domain)
+	for locale in en ja ; do \
+		$(CONS) translation:update $$locale --domain=messages --force ; \
+	done

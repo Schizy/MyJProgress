@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="ja" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="ja" target-language="ja" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -12,29 +12,29 @@
       </trans-unit>
       <trans-unit id="GyNiJAi" resname="menu.home">
         <source>menu.home</source>
-        <target>Home</target>
+        <target>ホーム</target>
       </trans-unit>
       <trans-unit id="PBKgpKb" resname="menu.about">
         <source>menu.about</source>
-        <target>About</target>
+        <target>このサイトについて</target>
       </trans-unit>
       <trans-unit id="CLZ0mL3" resname="menu.add-grammar">
         <source>menu.add-grammar</source>
-        <target>Add grammar</target>
+        <target>新たな文法を加える</target>
       </trans-unit>
       <trans-unit id="wvvYSw_" resname="menu.admin">
         <source>menu.admin</source>
-        <target>Admin</target>
+        <target>アドミン</target>
       </trans-unit>
 
       <!-- HOME -->
       <trans-unit id="1C0ZchX" resname="home.title">
         <source>home.title</source>
-        <target>Welcome!</target>
+        <target>ようこそ</target>
       </trans-unit>
       <trans-unit id="79AnSeC" resname="header.subtitle">
         <source>header.subtitle</source>
-        <target>Stay aware of your progress in japanese!</target>
+        <target>どの程度まで上達したかを忘れないように</target>
       </trans-unit>
     </body>
   </file>

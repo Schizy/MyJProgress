@@ -44,3 +44,7 @@ Make commands
 *Redis*
 
 - `make redis` to enter the redis-cli
+
+*Translations*
+
+- `make update-translations` (or `make ut` ) to update the translations files
