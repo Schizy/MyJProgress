@@ -1,4 +1,4 @@
-FROM php:8.0.3-fpm-alpine
+FROM php:8.0.5-fpm-alpine
 
 RUN apk add --update \
     $PHPIZE_DEPS \
