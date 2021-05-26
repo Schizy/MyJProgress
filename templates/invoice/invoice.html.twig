@@ -14,6 +14,7 @@
 
         .line {
             padding: 6px;
+            empty-cells:hide;
         }
 
         .semi-line {
@@ -42,7 +43,7 @@
         }
 
         thead {
-            background: #ddd;
+            background: #eee;
         }
 
         thead tr th {
@@ -51,7 +52,7 @@
         }
 
         .total {
-            background: #ddd;
+            background: #eee;
             padding: 7px;
         }
 
@@ -60,8 +61,8 @@
             border: 1px solid #555;
         }
 
-        table.no-border tr td {
-            border: none;
+        .no-border {
+            border: none !important;
         }
 
     </style>
@@ -101,9 +102,9 @@
                         <div class="line"><strong>Échéance</strong></div>
                     </td>
                     <td class="right">
-                        <div class="line">006</div>
-                        <div class="line">31/08/2019</div>
-                        <div class="line">31/09/2019</div>
+                        <div class="line">008</div>
+                        <div class="line">31/05/2021</div>
+                        <div class="line">20/06/2021</div>
                     </td>
                 </tr>
             </table>
@@ -123,30 +124,30 @@
     </tr>
     </thead>
     <tr>
-        <td>15</td>
+        <td align="center">12</td>
         <td>Jours homme en Développement Back end</td>
-        <td>400,00</td>
+        <td>500,00</td>
         <td>6 000,00</td>
     </tr>
     <tr>
         <td colspan="2" class="no-border"></td>
-        <td>Total HT</td>
+        <td class="no-border">Total HT</td>
         <td>6 000,00</td>
     </tr>
     <tr>
         <td colspan="2" class="no-border"></td>
-        <td>TVA 20.0%</td>
+        <td class="no-border">TVA 20.0%</td>
         <td>1 200,00</td>
     </tr>
     <tr>
         <td colspan="2" class="no-border"></td>
-        <td><h1>Total</h1></td>
+        <td class="no-border"><h1>Total</h1></td>
         <td class="total"><h1>7 200,00 €</h1></td>
     </tr>
 </table>
 
 <p>
-    <strong>Conditions et modalités de paiement</strong><br>
+    <strong>Conditions et modalités de paiement</strong><br><br>
     Numéro de TVA: {{ my.tva }}<br>
     Paiement à 30 jours dès réception de facture au compte bancaire suivant:
     <br><br>
