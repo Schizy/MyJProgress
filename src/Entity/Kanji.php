@@ -42,6 +42,16 @@ class Kanji
      */
     private $onyomi = [];
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $kunExample;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $onExample;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +113,30 @@ class Kanji
     public function setOnyomi(?array $onyomi): self
     {
         $this->onyomi = $onyomi;
+
+        return $this;
+    }
+
+    public function getKunExample(): ?string
+    {
+        return $this->kunExample;
+    }
+
+    public function setKunExample(?string $kunExample): self
+    {
+        $this->kunExample = $kunExample;
+
+        return $this;
+    }
+
+    public function getOnExample(): ?string
+    {
+        return $this->onExample;
+    }
+
+    public function setOnExample(?string $onExample): self
+    {
+        $this->onExample = $onExample;
 
         return $this;
     }

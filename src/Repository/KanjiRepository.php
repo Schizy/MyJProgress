@@ -30,4 +30,17 @@ class KanjiRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()->getResult();
     }
+
+    /**
+     * @param int $limit
+     * @return int|mixed|string
+     */
+    public function findNoReadings(int $limit = 50)
+    {
+        return $this->createQueryBuilder('k')
+            ->andWhere('k.kunyomi is null')
+            ->andWhere('k.onyomi is null')
+            ->setMaxResults($limit)
+            ->getQuery()->getResult();
+    }
 }
