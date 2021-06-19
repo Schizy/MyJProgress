@@ -32,6 +32,16 @@ class Kanji
      */
     private $commonStat;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $kunyomi = [];
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $onyomi = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Kanji
     public function setCommonStat(?int $commonStat): self
     {
         $this->commonStat = $commonStat;
+
+        return $this;
+    }
+
+    public function getKunyomi(): ?array
+    {
+        return $this->kunyomi;
+    }
+
+    public function setKunyomi(?array $kunyomi): self
+    {
+        $this->kunyomi = $kunyomi;
+
+        return $this;
+    }
+
+    public function getOnyomi(): ?array
+    {
+        return $this->onyomi;
+    }
+
+    public function setOnyomi(?array $onyomi): self
+    {
+        $this->onyomi = $onyomi;
 
         return $this;
     }
