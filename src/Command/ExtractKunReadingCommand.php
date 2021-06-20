@@ -12,9 +12,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ExtractReadingsCommand extends Command
+class ExtractKunReadingCommand extends Command
 {
-    protected static $defaultName = 'app:kanji:extractReadings';
+    protected static $defaultName = 'app:kanji:extractKunReading';
 
     public function __construct(
         protected KanjiRepository $repository,
@@ -27,39 +27,27 @@ class ExtractReadingsCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Populate the reading colons of kanji table')
+            ->setDescription('Populate the kun example colon of kanji table')
             ->addArgument('limit', InputArgument::OPTIONAL, 'How many kanjis to populate in one go');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $kanjis = $this->repository->findNoReadings($input->getArgument('limit') ?? 50);
+        $kanjis = $this->repository->findNoKunExample($input->getArgument('limit') ?? 50);
         $io->progressStart(count($kanjis));
-
-        // 2. stocker le premier kun en remplacant ce qu'il y a avant le point par le kanji ( くる.しい)
-        // 3. récupérer le premier mot common qui utilise le ON (苦 く #common)
-        // 4. garder la liste complète des kun et on, mettre les examples dans des champs à part (exempleKun, exempleOn)
 
         /**
          * @var Kanji $kanji
          */
-        foreach ($kanjis as $i => $kanji) {
-            $readings = JishoExtractor::getReadings($kanji->getKanji());
-
-            $kanji
-                ->setKunyomi(explode(";", $readings['kun']))
-                ->setOnyomi(explode(";", $readings['on']));
-
-            if ($i % 10 == 0) {
-                $this->em->flush();
-            }
+        foreach ($kanjis as $kanji) {
+            $kanji->generateKunExample();
             $io->progressAdvance();
         }
 
         $this->em->flush();
         $io->progressFinish();
-        $io->success('All the kanjis have readings now!');
+        $io->success('All the kanjis have Kun examples now!');
 
         return Command::SUCCESS;
     }

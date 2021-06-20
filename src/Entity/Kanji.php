@@ -52,6 +52,18 @@ class Kanji
      */
     private $onExample;
 
+    public function generateKunExample(): bool
+    {
+        foreach ($this->kunyomi as $kun) {
+            if (str_contains($kun, '.')) {
+                $this->kunExample = str_replace('&#12289', '', substr_replace($kun,$this->kanji, 0,  strpos($kun, '.')+1));
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

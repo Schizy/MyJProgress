@@ -43,4 +43,18 @@ class KanjiRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()->getResult();
     }
+
+    /**
+     * @param int $limit
+     * @return int|mixed|string
+     */
+    public function findNoKunExample(int $limit = 50)
+    {
+        return $this->createQueryBuilder('k')
+            ->andWhere('k.kunyomi is not null')
+            ->andWhere('k.kunExample is null')
+            ->andWhere('k.kunyomi  LIKE \'%\.%\'')
+            ->setMaxResults($limit)
+            ->getQuery()->getResult();
+    }
 }
