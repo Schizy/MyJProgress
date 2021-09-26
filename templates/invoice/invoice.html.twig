@@ -102,9 +102,9 @@
                         <div class="line"><strong>Échéance</strong></div>
                     </td>
                     <td class="right">
-                        <div class="line">008</div>
-                        <div class="line">31/05/2021</div>
-                        <div class="line">20/06/2021</div>
+                        <div class="line">{{ invoiceNumber }}</div>
+                        <div class="line">{{ invoiceDate }}</div>
+                        <div class="line">{{ invoiceEndDate }}</div>
                     </td>
                 </tr>
             </table>
@@ -124,25 +124,26 @@
     </tr>
     </thead>
     <tr>
-        <td align="center">12</td>
+        {% set total = numberOfDays * tjm %}
+        <td align="center">{{ numberOfDays }}</td>
         <td>Jours homme en Développement Back end</td>
-        <td>500,00</td>
-        <td>6 000,00</td>
+        <td>{{ tjm|number_format }}</td>
+        <td>{{ total|number_format }}</td>
     </tr>
     <tr>
         <td colspan="2" class="no-border"></td>
         <td class="no-border">Total HT</td>
-        <td>6 000,00</td>
+        <td>{{ total|number_format }}</td>
     </tr>
     <tr>
         <td colspan="2" class="no-border"></td>
         <td class="no-border">TVA 20.0%</td>
-        <td>1 200,00</td>
+        <td>{{ (total * 0.2)|number_format  }}</td>
     </tr>
     <tr>
         <td colspan="2" class="no-border"></td>
         <td class="no-border"><h1>Total</h1></td>
-        <td class="total"><h1>7 200,00 €</h1></td>
+        <td class="total"><h1>{{ (total * 1.2)|number_format }} €</h1></td>
     </tr>
 </table>
 

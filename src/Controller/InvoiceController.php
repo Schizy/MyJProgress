@@ -12,45 +12,31 @@ class InvoiceController extends AbstractController
     #[Route('/invoice', name: 'invoice')]
     public function invoice(): Response
     {
-        $view =  $this->renderView('invoice/invoice.html.twig', [
-            'my' => [
-                'name' => $_ENV['MY_NAME'],
-                'address' => $_ENV['MY_ADDRESS'],
-                'city' => $_ENV['MY_CITY'],
-                'siret' => $_ENV['MY_SIRET'],
-                'tva' => $_ENV['MY_TVA'],
-                'bank' => $_ENV['MY_BANK'],
-            ],
-            'client' => [
-                'name' => $_ENV['CLIENT_NAME'],
-                'address' => $_ENV['CLIENT_ADDRESS'],
-                'city' => $_ENV['CLIENT_CITY'],
-                'siret' => $_ENV['CLIENT_SIRET'],
-            ],
-        ]);
-        die($view);
-
-
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($view);
-
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser
-        $dompdf->stream();
-        exit;
+        //Die to avoid toolbar
+        die($this->renderView('invoice/invoice.html.twig', $this->viewParams()));
     }
-
 
     #[Route('/invoice/pdf', name: 'invoicePdf')]
     public function invoicePdf(): Response
     {
-        $view =  $this->renderView('invoice/invoice.html.twig', [
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($this->renderView('invoice/invoice.html.twig', $this->viewParams()));
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4')->render();
+
+        $dompdf->stream();
+        exit;
+    }
+
+    private function viewParams(): array
+    {
+        return [
+            'tjm' => $_ENV['TJM'],
+            'numberOfDays' => 16,
+            'invoiceNumber' => "012",
+            'invoiceDate' => '30/09/2021',
+            'invoiceEndDate' => '20/10/2021',
             'my' => [
                 'name' => $_ENV['MY_NAME'],
                 'address' => $_ENV['MY_ADDRESS'],
@@ -65,21 +51,6 @@ class InvoiceController extends AbstractController
                 'city' => $_ENV['CLIENT_CITY'],
                 'siret' => $_ENV['CLIENT_SIRET'],
             ],
-        ]);
-
-
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($view);
-
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser
-        $dompdf->stream();
-        exit;
+        ];
     }
 }
