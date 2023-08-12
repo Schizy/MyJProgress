@@ -1,7 +1,33 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="col-lg-8 col-md-10 mx-auto">
+
+
+
+    <span style="font-size: 60px; color: black">
         {{ generatedKatakanas }}
-        {{ generatedResponse }}
+    </span>
+    <br><br>
+
+    <div id="hidden" style="display:none">{{ generatedResponse }}</div>
+
+    <div onclick="display('hidden');">Afficher la réponse</div>
     </div>
+
+
+    <script type="text/javascript">
+
+    function display(target)
+    {
+
+        var x = document.getElementById(target);
+
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    </script>
 {% endblock %}
