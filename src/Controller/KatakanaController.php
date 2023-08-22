@@ -124,11 +124,21 @@ class KatakanaController extends AbstractController
             'トゥ' => 'tu',
             'ウェ' => 'we',
             'ウォ' => 'wo',
+            'ー'   => '-',
         ];
 
-        $randomKanas = array_rand($katakana, random_int(5, 10));
+        $lenght = random_int(8, 13);
+        $randomKanas = array_rand($katakana, $lenght);
+
+        $original = array( 'a', 'b', 'c', 'd', 'e' );
+        $inserted = array( 'x' ); // not necessarily an array, see manual quote
+
+        for($i=1;$i<=random_int(3,6);$i++) {
+            array_splice($randomKanas, $i, 0, ['ー']);
+        }
 
         $generatedKatakanas = implode('', $randomKanas);
+        // $generatedKatakanas = str_replace($generatedKatakanas, "ーー", "ー");
         $generatedResponse = '';
 
         foreach($randomKanas as $key) {
