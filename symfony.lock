@@ -111,12 +111,6 @@
     "egulias/email-validator": {
         "version": "2.1.23"
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.3"
-    },
-    "laminas/laminas-code": {
-        "version": "3.4.1"
-    },
     "lcobucci/clock": {
         "version": "2.0.0"
     },
